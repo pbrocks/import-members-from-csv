@@ -1,4 +1,6 @@
 <?php
+// namespace PMPRO\Addons;
+defined( 'ABSPATH' ) || die( 'File cannot be accessed directly' );
 /**
  * Plugin Name: Paid Memberships Pro - Import Members from CSV
  * Plugin URI: http://wordpress.org/plugins/pmpro-import-members-from-csv/
@@ -31,10 +33,20 @@
  * @credit https://github.com/strangerstudios/pmpro-import-users-from-csv - Jason Coleman - https://github.com/ideadude
  */
 
-namespace PMPRO\Addons;
 
-defined( 'ABSPATH' ) || die( 'File cannot be accessed directly' );
+/**
+ * Load welcome page
+ */
+require_once( 'class-import-members-help-menus.php' );
+register_activation_hook( __FILE__, 'import_members_install_welcome' );
+function import_members_install_welcome() {
+	set_transient( 'import_members_activated', true, 30 );
+}
 
+
+require_once( 'class-pmpro-import-members.php' );
+// Load the plugin.
+// add_action( 'plugins_loaded', array( Import_Members_From_CSV::get_instance(), 'load_plugins' ) );
 if ( ! defined( 'PMP_IM_CSV_DELIMITER' ) ) {
 	define( 'PMP_IM_CSV_DELIMITER', ',' );
 }
@@ -44,6 +56,3 @@ if ( ! defined( 'PMP_IM_CSV_ESCAPE' ) ) {
 if ( ! defined( 'PMP_IM_CSV_ENCLOSURE' ) ) {
 	define( 'PMP_IM_CSV_ENCLOSURE', '"' );
 }
-
-// Load the plugin.
-add_action( 'plugins_loaded', array( Import_Members_From_CSV::get_instance(), 'load_plugins' ) );

@@ -4,6 +4,8 @@ namespace PMPRO\Addons;
 
 defined( 'ABSPATH' ) || die( 'File cannot be accessed directly' );
 
+// Load the plugin.
+add_action( 'plugins_loaded', array( Import_Members_From_CSV::get_instance(), 'load_plugins' ) );
 class Import_Members_From_CSV {
 
 	/**
@@ -2130,5 +2132,3 @@ class Import_Members_From_CSV {
 	}
 }
 
-// Load the plugin.
-add_action( 'plugins_loaded', array( Import_Members_From_CSV::get_instance(), 'load_plugins' ) );
